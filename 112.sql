@@ -1,8 +1,8 @@
 SELECT
 	tabCustomer.customer_name AS "Nombre:Data:150",
 	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion AS "Fecha",
-`tabINVERSIONES ESPANA PAGOS`.id_desembolso AS "L19:Int:100",
-`tabInversiones Espana Facturas`.ncf AS "Factura:Data:100",
+	`tabINVERSIONES ESPANA PAGOS`.id_desembolso AS "L19:Int:100",
+	`tabInversiones Espana Facturas`.ncf AS "Factura:Data:100",
 	`tabINVERSIONES ESPANA PAGOS`.monto_solicitado AS "Monto1:Data:150"
 FROM
 `tabINVERSIONES ESPANA PAGOS`
