@@ -5,7 +5,7 @@ SELECT
 	`tabINVERSIONES ESPANA PAGOS`.id_desembolso AS "L19:Int:100",
 	`tabJournal Entry`.`name` AS "Asiento",
 	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion AS "Fecha",
-	`tabINVERSIONES ESPANA PAGOS`.monto_solicitado AS "Monto1",
+	`tabINVERSIONES ESPANA PAGOS`.monto_solicitado AS "Monto1"
 FROM
 	`tabINVERSIONES ESPANA PAGOS`
 INNER JOIN `tabJournal Entry` ON `tabINVERSIONES ESPANA PAGOS`.id_desembolso = `tabJournal Entry`.id_de_desembolso
