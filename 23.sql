@@ -1,17 +1,17 @@
 SELECT
-	`tabINVERSIONES ESPANA PAGOS`.nombre_cliente AS "Nombre",
-	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion AS "Fecha",
-	`tabINVERSIONES ESPANA PAGOS`.tipo_comision AS L18,
-	`tabINVERSIONES ESPANA PAGOS`.id_desembolso AS "L19:Int:100",
-	`tabJournal Entry`.`name` AS "Asiento",
-	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion AS "Fecha",
-	`tabINVERSIONES ESPANA PAGOS`.monto_solicitado AS "Monto1"
+	iep.nombre_cliente AS "Nombre",
+	iep.fecha_transaccion AS "Fecha",
+	iep.tipo_comision AS L18,
+	iep.id_desembolso AS "L19:Int:100",
+	je.`name` AS "Asiento",
+	iep.fecha_transaccion AS "Fecha",
+	iep.monto_solicitado AS "Monto1"
 FROM
-	`tabINVERSIONES ESPANA PAGOS`
-INNER JOIN `tabJournal Entry` ON `tabINVERSIONES ESPANA PAGOS`.id_desembolso = `tabJournal Entry`.id_de_desembolso
+	`tabINVERSIONES ESPANA PAGOS` iep
+INNER JOIN `tabJournal Entry` je ON iep.id_desembolso = je.id_de_desembolso
 WHERE
-	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion BETWEEN "2018-01-01" AND "2018-01-31" AND
-	`tabINVERSIONES ESPANA PAGOS`.metodo_credito = "Principal"
+	iep.fecha_transaccion BETWEEN "2018-01-01" AND "2018-01-31" AND
+	iep.metodo_credito = "Principal"
 ORDER BY
-	`tabINVERSIONES ESPANA PAGOS`.nombre_cliente,
-	`tabINVERSIONES ESPANA PAGOS`.fecha_transaccion
+	iep.nombre_cliente,
+	iep.fecha_transaccion
