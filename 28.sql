@@ -2,7 +2,7 @@ SELECT
 	iep.nombre_cliente AS "Nombre",
 	iep.fecha_transaccion AS "Fecha",
 	iep.id_desembolso AS "L19:Int:100",
-je.id_de_desembolso,
+	je.id_de_desembolso,
 	je.`name` AS "Asiento",
 	iep.monto_solicitado AS "Monto1"
 FROM
