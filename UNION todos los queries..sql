@@ -1,5 +1,5 @@
 SELECT
-iep.nombre_cliente,
+c.customer_name,
 	NULL AS L1,
 	NULL AS L2,
 	NULL AS L3,
@@ -26,7 +26,7 @@ iep.monto_solicitado AS "Monto1:Data:150",
 iep.monto_solicitado AS "Monto2:Data:150",
 iep.monto_solicitado AS "Monto3:Data:150",
 	NULL AS L23,
-	CASE iep.monto_comision
+CASE iep.monto_comision
 WHEN "200-02-960-042041-8" THEN
 	"110107 - BANCO DE RESERVAS / CTA AHORRO USD #9600420418 - IE"
 WHEN "b-0000000111" THEN
@@ -49,10 +49,16 @@ ied.desembolso = iep.id_desembolso
 RIGHT JOIN
 `tabInversiones Espana Facturas` ief
 ON
-	ied.desembolso = ief.id_desembolso and
-	ied.monto_comision = ief.monto_facturado
+ied.desembolso = ief.id_desembolso and
+ied.monto_comision = ief.monto_facturado
+LEFT JOIN
+tabCustomer c
+ON
+iep.id_cliente = c.id
 WHERE
-iep.metodo_credito = "Comision"
+iep.metodo_credito = "Comision" AND
+iep.fecha_transaccion >= "2018-01-01" AND
+iep.fecha_transaccion <= "2018-01-31"
 UNION
 SELECT
 	c.customer_name,
@@ -98,7 +104,7 @@ WHEN "1-108-201-000951-3" THEN
 END AS "Cuenta"
 FROM
 `tabINVERSIONES ESPANA PAGOS` iep
-LEFT JOIN
+LEFT OUTER JOIN
 `tabInversiones Espana Facturas` ief
 ON
 iep.id_desembolso = ief.id_desembolso AND
@@ -114,7 +120,7 @@ iep.metodo_credito != "Principal" AND
 iep.metodo_credito != "Comision"
 UNION
 SELECT
-	iep.nombre_cliente,
+	c.customer_name,
 	NULL AS L1,
 	NULL AS L2,
 	NULL AS L3,
@@ -155,16 +161,19 @@ WHEN "2612623-0018" THEN
 WHEN "1-108-201-000951-3" THEN
 	"110104 - BANCO SANTA CRUZ / CTA. AHORRO DOP #11082010009513 - IE"
 END AS "Cuenta"
-
 FROM
 	`tabINVERSIONES ESPANA PAGOS` iep
 LEFT JOIN `tabJournal Entry` je
 ON
 iep.id_desembolso = je.id_de_desembolso
+LEFT JOIN
+tabCustomer c
+ON
+iep.id_cliente = c.id
 WHERE
 	iep.fecha_transaccion BETWEEN "2018-01-01" AND "2018-01-31" AND
-	IF(iep.id_desembolso = je.id_de_desembolso,iep.metodo_credito = "Principal",iep.metodo_credito = "Comision") 
+	IF(iep.id_desembolso = je.id_de_desembolso,iep.metodo_credito = "Principal",iep.metodo_credito = "Comision")
 ORDER BY
-nombre_cliente,
+customer_name,
 fecha_transaccion,
 ncf
